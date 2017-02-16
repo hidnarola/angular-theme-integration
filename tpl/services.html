@@ -1,0 +1,296 @@
+
+<!--<div class="page_header">
+    <h1>Skills & Capabilities</h1>
+    <p>Here you can see all of your skills which supplement the business.</p>
+</div>-->
+<div class="jumbotron" data-pages="parallax">
+    <div class="container-fluid container-fixed-lg">
+        <div class="panel panel-transparent">
+            <div class="panel-body">
+                <ul class="breadcrumb">
+                    <li>
+                        <a ui-sref="app.dashboard">Dashboard</a>
+                    </li>
+                    <li><a class="active">Our Services</a>
+                    </li>
+                </ul>
+                <div class="col-md-6 no-padding">
+                    <div>
+                        <h1 class="bold">Our Services</h1>
+                        <p>This is some basic information which we may show or not depends on the page real estate.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="container-fluid container-fixed-lg bg-white">-->
+<div class="m-l-30 m-r-30 bg-white">
+    <!-- START PANEL -->
+    <div class="panel panel-transparent" ng-controller="ServicesCtrl">
+        <div class="panel-heading">
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive table_wrapper">
+                <form role="form">
+                    <div class="search-input">
+                        <input type="text" class="form-control table_search" placeholder="Search Service Name, Vendor"><i class="pg-search icn"></i>
+                    </div>
+                    <ui-select ng-model="person.selected" theme="bootstrap">
+                        <ui-select-match placeholder="Type">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in people | filter: $select.search">
+                            <div ng-bind-html="trustAsHtml((item.name | highlight: $select.search))"></div>
+                            <small ng-bind-html="trustAsHtml((item.email | highlight: $select.search))"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                    <ui-select ng-model="person.selected" theme="bootstrap">
+                        <ui-select-match placeholder="Category">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in people | filter: $select.search">
+                            <div ng-bind-html="trustAsHtml((item.name | highlight: $select.search))"></div>
+                            <small ng-bind-html="trustAsHtml((item.email | highlight: $select.search))"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                    <ui-select ng-model="person.selected" theme="bootstrap">
+                        <ui-select-match placeholder="Vendor">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in people | filter: $select.search">
+                            <div ng-bind-html="trustAsHtml((item.name | highlight: $select.search))"></div>
+                            <small ng-bind-html="trustAsHtml((item.email | highlight: $select.search))"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                    <ui-select ng-model="person.selected" theme="bootstrap">
+                        <ui-select-match placeholder="Status">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in people | filter: $select.search">
+                            <div ng-bind-html="trustAsHtml((item.name | highlight: $select.search))"></div>
+                            <small ng-bind-html="trustAsHtml((item.email | highlight: $select.search))"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                </form>
+                <div class="btn-group pull-right m-b-10">
+                    <button type="button" class="btn btn-default">Add new</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="">Settings</a>
+                        </li>
+                        <li><a href="">Help</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <table class="table table-hover" id="basicTable" ui-jq="dataTable" ui-options="options">
+                    <thead>
+                        <tr>
+                            <th style="width:1%">
+                                <button class="btn"><i class="pg-trash"></i>
+                                </button>
+                            </th>
+                            <th style="width:20%">Service Name</th>
+                            <th style="width:8%">Type</th>
+                            <th style="width:8%">Category</th>
+                            <th style="width:25%">Tags</th>
+                            <th style="width:8%">Popularity</th>
+                            <th style="width:8%">Vendor</th>
+                            <th style="width:8%">Status</th>
+                            <th style="width:14%">Last Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="service in services">
+                            <td class="v-align-middle">
+                                <div class="checkbox ">
+                                    <input type="checkbox" value="3" id="checkbox1" ng-click="selectRow($event)">
+                                    <label for="checkbox1"></label>
+                                </div>
+                            </td>
+                            <td class="v-align-middle ">
+                                <p>{{service.name}} <span ng-if="service.isNew" class="label label-success">NEW</span></p>
+                            </td>
+                            <td class="v-align-middle">
+                                <p>{{service.type}}</p>
+                            </td>
+                            <td class="v-align-middle">
+                                <p>{{service.category}}</p>
+                            </td>
+                            <td class="v-align-middle">
+                                <p class="bootstrap-tagsinput">
+                                    <span ng-repeat="(key,tag) in service.tags track by key" class="tag label label-info">{{tag}}<span data-role="remove"></span></span>
+                                </p>
+                            </td>
+                            <td class="v-align-middle">
+                                <p>{{service.popularity}}</p>
+                            </td>
+                            <td class="v-align-middle">
+                                <p>{{service.vendor}}</p>
+                            </td>
+                            <td class="v-align-middle">
+                                <p>{{service.status}}</p>
+                            </td>
+                            <td class="v-align-middle">
+                                <p>{{service.lastUpdate}}</p>
+                            </td>
+                        </tr>
+                        <!--                        <tr>
+                                                    <td class="v-align-middle">
+                                                        <div class="checkbox ">
+                                                            <input type="checkbox" value="3" id="checkbox2" ng-click="selectRow($event)">
+                                                            <label for="checkbox2"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="v-align-middle ">
+                                                        <p>Among the children</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>United States, India, China,Africa</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>you want English, Scottish, Welsh, Irish, British, European or UK even a British (name other original country you came form or have roots to E.G. A British Japanese or a 5th generation</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>Public</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>April 13,2014 10:13</p>
+                                                    </td>
+                                                </tr>-->
+                        <!--                        <tr>
+                                                    <td class="v-align-middle">
+                                                        <div class="checkbox ">
+                                                            <input type="checkbox" value="3" id="checkbox3" ng-click="selectRow($event)">
+                                                            <label for="checkbox3"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="v-align-middle ">
+                                                        <p>A day to remember</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>United States, India, China,Africa</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>UK was on top of the art world 18-19 century had the best food, best cloths and best entertainment back then) it was a hyper nation</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>Public</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>April 13,2014 10:13</p>
+                                                    </td>
+                                                </tr>-->
+                        <!--                        <tr>
+                                                    <td class="v-align-middle">
+                                                        <div class="checkbox ">
+                                                            <input type="checkbox" value="3" id="checkbox4" ng-click="selectRow($event)">
+                                                            <label for="checkbox4"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="v-align-middle ">
+                                                        <p>Life’s sadness shared</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>United States, India, China,Africa</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>he world speaks English. Common law, Magna Carta and the Bill of Rights are its wonderful legacy</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>Public</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>April 13,2014 10:13</p>
+                                                    </td>
+                                                </tr>-->
+                        <!--                        <tr>
+                                                    <td class="v-align-middle">
+                                                        <div class="checkbox ">
+                                                            <input type="checkbox" value="3" id="checkbox5" ng-click="selectRow($event)">
+                                                            <label for="checkbox5"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="v-align-middle ">
+                                                        <p>First Tour</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>United States, India, China,Africa</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>Public</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>April 13,2014 10:13</p>
+                                                    </td>
+                                                </tr>-->
+                        <!--                        <tr>
+                                                    <td class="v-align-middle">
+                                                        <div class="checkbox ">
+                                                            <input type="checkbox" value="3" id="checkbox6" ng-click="selectRow($event)">
+                                                            <label for="checkbox6"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="v-align-middle ">
+                                                        <p>First Tour</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>United States, India, China,Africa</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>it is more then ONE nation/nationality as its fall name is The United Kingdom of Great Britain and North Ireland..</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>Public</p>
+                                                    </td>
+                                                    <td class="v-align-middle">
+                                                        <p>April 13,2014 10:13</p>
+                                                    </td>
+                                                </tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- END PANEL -->
+</div>
+<!--<div class="table-responsive basicTable-wrapper">
+    <table class="table table-hover" id="basicTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Skill Name</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Activity</th>
+                <th>Mode</th>
+                <th>Skill Level</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="skill in skills">
+                <td><div class="skill-img"> </div></td>
+                <td>{{skill.skillName}}</td>
+                <td>
+                    <div class="status-symbol">
+                        <a href=""></a>
+                        <a href=""></a>
+                    </div>
+                </td>
+                <td>{{skill.description}}</td>
+                <td>{{skill.activity}}</td>
+                <td>{{skill.mode}}</td>
+                <td>{{skill.skillLevel}}</td>
+                <td>
+                    <div class="edit-remove-option">
+                        <a href="" class="edit-option"><img src="assets/img/edit-icon.png" alt="" /></a>
+                        <a href="" class="remove-option"><img src="assets/img/remove-icon.png" alt="" /></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>-->
